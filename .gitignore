@@ -1,0 +1,6 @@
+# Editor Files
+\#*\#
+*~
+
+# Firefox Build Artifacts
+*.xpi

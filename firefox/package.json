@@ -1,0 +1,9 @@
+{
+  "name": "putio-scraper",
+  "title": "Put.io Scraper",
+  "id": "jid1-cl57h4P2APcOkw",
+  "description": "Scrape pages for URLs to add to put.io",
+  "author": "Paul Osborne",
+  "license": "MPL 2.0",
+  "version": "0.1"
+}
