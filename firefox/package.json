@@ -1,9 +1,32 @@
 {
-  "name": "putio-scraper",
-  "title": "Put.io Scraper",
-  "id": "jid1-cl57h4P2APcOkw",
-  "description": "Scrape pages for URLs to add to put.io",
-  "author": "Paul Osborne",
-  "license": "MPL 2.0",
-  "version": "0.1"
+    "name": "putio-scraper",
+    "title": "Put.io Scraper",
+    "id": "jid1-cl57h4P2APcOkw",
+    "description": "Scrape pages for URLs to add to put.io",
+    "author": "Paul Osborne",
+    "license": "MPL 2.0",
+    "version": "0.1",
+    "permissions": {
+        "private-browsing": true
+    },
+    "preferences": [
+        {
+            "type": "string",
+            "name": "auth_token",
+            "value": "",
+            "title": "Auth Token"
+        },
+        {
+            "type": "control",
+            "name": "get_auth_token_btn",
+            "label": "Get Auth Token",
+            "title": "Get Auth Token"
+        },
+        {
+            "type": "string",
+            "name": "link regex",
+            "value": "^magnet:.*",
+            "title": "Linex RegEx"
+        }
+    ]
 }
