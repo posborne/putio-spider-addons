@@ -24,7 +24,7 @@
         },
         {
             "type": "string",
-            "name": "link regex",
+            "name": "link_regex",
             "value": "^magnet:.*",
             "title": "Linex RegEx"
         }

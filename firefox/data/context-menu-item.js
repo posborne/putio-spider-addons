@@ -10,13 +10,18 @@
  * with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+self.port.on("prefchange", function(data) {
+    console.log("prefchange", data);
+    prefs[data.key] = data.value;
+});
+
 function findPotentialDownloads(node) {
-    // TODO: for now we just say all images
     var potentials = [];
     var links = document.querySelectorAll("a");
+    var re = new RegExp(link_regex); /* defined in global from contentScript */
     for(var i = 0; i < links.length; i++) {
         var link = links[i];
-        if (link.href.startsWith("magnet:")) {
+        if (re.test(link.href)) {
             potentials.push(link);
         }
     }

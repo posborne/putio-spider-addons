@@ -6,7 +6,7 @@
  * with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 var data = require("sdk/self").data;
-var cm = require("sdk/context-menu");
+var contextMenu = require("sdk/context-menu");
 var notifications = require("sdk/notifications");
 var PutIO = require("PutIO").PutIO;
 var tabs = require("sdk/tabs");
@@ -63,13 +63,34 @@ function downloadRequest(url, itemName) {
     });
 }
 
-cm.Item({
-    label: "put.io scrape",
-    context: cm.SelectorContext("body"),
-    contentScriptFile: data.url("context-menu-item.js"),
-    onMessage: function(msgData) {
-        if (msgData.type == "downloadRequest") {
-            downloadRequest(msgData.url, msgData.name);
+function addMenuItem() {
+    menuItem = contextMenu.Item({
+        label: "put.io scrape",
+        context: contextMenu.SelectorContext("body"),
+        contentScriptFile: data.url("context-menu-item.js"),
+        contentScript: ["link_regex = \"" + prefs.prefs.link_regex + "\";"],
+        onMessage: function(msgData) {
+            if (msgData.type == "downloadRequest") {
+                downloadRequest(msgData.url, msgData.name);
+            }
         }
-    }
+    });
+}
+
+// We need to pass preferences on to the context menu but
+// that isn't well supported, so we just create the item
+// anew
+prefs.on("link_regex", function(prefName) {
+    menuItem.parentMenu.removeItem(menuItem);
+    menuItem.destroy();
+    addMenuItem();
 });
+
+// If we get a new auth token, we need to recreate the PutIO
+// library handle
+prefs.on("auth_token", function() {
+    api = new PutIO(prefs.prefs.auth_token);
+});
+
+// create the first one
+addMenuItem();
